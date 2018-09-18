@@ -1,0 +1,20 @@
+version: '3'
+services:
+  praxis-frontend:
+    build: frontend/.
+    depends_on:
+      - praxis-backend
+    ports:
+      - '8080:80'
+  praxis-backend:
+    build: backend/.
+    environment:
+      MONGO_URL: 'mongodb://praxis-db:27017/userdb'
+    depends_on:
+      - praxis-db
+    ports:
+      - '3001:3001'
+  praxis-db:
+    image: mongo
+    expose:
+      - '27017'
